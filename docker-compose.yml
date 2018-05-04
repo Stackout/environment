@@ -58,7 +58,7 @@ services:
     hostname: git.sudio.co
     ports:
       - "444:443"
-      - "888:80"
+      - "888:888"
       - "22:22"
 
 #  gitea:
