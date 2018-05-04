@@ -1,0 +1,1 @@
+2018/05/04 18:36:00 [error] 5#5: *1 open() "/usr/share/nginx/html/index.php" failed (2: No such file or directory), client: 172.18.0.1, server: localhost, request: "GET /index.php HTTP/1.1", host: "localhost:8080"
