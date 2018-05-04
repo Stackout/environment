@@ -1,0 +1,9 @@
+I, [2018-05-04T22:48:20.064859 #942]  INFO -- : Refreshing Gem list
+I, [2018-05-04T22:48:58.447043 #942]  INFO -- : listening on addr=127.0.0.1:8080 fd=18
+I, [2018-05-04T22:48:58.449492 #942]  INFO -- : listening on addr=/var/opt/gitlab/gitlab-rails/sockets/gitlab.socket fd=19
+I, [2018-05-04T22:48:58.523675 #942]  INFO -- : master process ready
+I, [2018-05-04T22:48:59.186205 #1168]  INFO -- : worker=1 ready
+I, [2018-05-04T22:48:59.237396 #1165]  INFO -- : worker=0 ready
+I, [2018-05-04T23:47:08.598834 #942]  INFO -- : reaped #<Process::Status: pid 1165 exit 0> worker=0
+I, [2018-05-04T23:47:08.601639 #942]  INFO -- : reaped #<Process::Status: pid 1168 exit 0> worker=1
+I, [2018-05-04T23:47:08.603125 #942]  INFO -- : master complete
