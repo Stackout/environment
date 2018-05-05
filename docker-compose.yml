@@ -48,6 +48,23 @@ services:
       PMA_PASSWORD: admin
       PMA_ARBITRARY: 1
 
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: gitlab
+    volumes:
+      - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
   gitlab:
     image: gitlab/gitlab-ce
     hostname: git.sudio.co
@@ -59,7 +76,7 @@ services:
         postgresql['enable'] = false
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
-        gitlab_rails['db_username'] = "gitlab"
+        gitlab_rails['db_username'] = "root"
         gitlab_rails['db_password'] = "gitlab"
         gitlab_rails['db_host'] = "postgresql"
         gitlab_rails['db_port'] = "5432"
@@ -82,21 +99,9 @@ services:
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
 
-  postgresql:
-    image: postgres
-    restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: gitlab
-    volumes:
-      - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-  redis:
-    image: redis
-    restart: always
-    ports:
-      - "6379:6379"
+
+
+
 
 
 
