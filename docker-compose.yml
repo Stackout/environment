@@ -50,7 +50,6 @@ services:
 
   gitlab:
     image: gitlab/gitlab-ce
-    restart: always
     hostname: git.sudio.co
     links:
       - postgresql
@@ -58,6 +57,8 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
         gitlab_rails['db_username'] = "root"
         gitlab_rails['db_password'] = "gitlab"
         gitlab_rails['db_host'] = "postgresql"
@@ -70,6 +71,7 @@ services:
         gitlab_rails['redis_port'] = '6379'
         external_url 'http://git.sudio.co:30080'
         gitlab_rails['gitlab_shell_ssh_port'] = 30022
+        gitlab_rails['gitlab_ssh_port'] = 30022
     ports:
     # both ports must match the port from external_url above
       - "30080:30080"
