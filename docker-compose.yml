@@ -25,16 +25,16 @@ services:
           - ./public:/usr/share/nginx/html
 
   mysql:
-  image: mariadb
-  environment:
-    - MYSQL_ROOT_PASSWORD=admin
-    - MYSQL_DATABASE=gitea
-    - MYSQL_USER=gitea
-    - MYSQL_PASSWORD=changeme
-  ports:
-    - "3306:3306" 
-  volumes:
-    - ./db/:/var/lib/mysql
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=changeme
+    ports:
+      - "3306:3306" 
+    volumes:
+      - ./db/:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
