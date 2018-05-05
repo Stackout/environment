@@ -54,7 +54,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: gitlab
       POSTGRES_DB: gitlabhq_production
     volumes:
@@ -80,7 +80,7 @@ services:
         postgresql['enable'] = false
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
-        gitlab_rails['db_username'] = "root"
+        gitlab_rails['db_username'] = "postgres"
         gitlab_rails['db_password'] = "gitlab"
         gitlab_rails['db_host'] = "postgresql"
         gitlab_rails['db_port'] = "5432"
