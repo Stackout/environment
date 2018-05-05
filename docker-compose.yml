@@ -81,19 +81,6 @@ gitlab:
 	- ./srv/gitlab/data:/var/opt/gitlab:rw
 
 
-  gitlab:
-    image: gitlab/gitlab-ce:latest
-    volumes:
-        - ./srv/gitlab/config:/etc/gitlab
-        - ./srv/gitlab/logs:/var/log/gitlab
-        - ./srv/gitlab/data:/var/opt/gitlab
-    hostname: git.sudio.co
-    ports:
-      - "440:443"
-      - "8080:8080"
-      - "2222:22"
-
-
 
 #  dockerswarmgui:
 #    image: julienbreux/docker-swarm-gui:latest
