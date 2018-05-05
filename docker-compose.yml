@@ -17,7 +17,7 @@ services:
 
         - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
         - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
-    networks:
+    network:
       - "netservice"
 
   phpfpm:
@@ -26,7 +26,7 @@ services:
           - "9000:9000"
       volumes:
           - ./public:/usr/share/nginx/html
-    networks:
+    network:
       - "netservice"
 
   mysql:
@@ -45,7 +45,7 @@ services:
    deploy:
       placement:
         constraints: [node.role == manager]
-        
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
@@ -57,7 +57,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: admin
       PMA_ARBITRARY: 1
-    networks:
+    network:
       - "netservice"
 
   gitlab:
@@ -67,7 +67,7 @@ services:
         - ./srv/gitlab/logs:/var/log/gitlab
         - ./srv/gitlab/data:/var/opt/gitlab
     hostname: git.sudio.co
-    networks:
+    network:
       - "netservice"
     ports:
       - "440:443"
@@ -75,7 +75,7 @@ services:
       - "22:22"
 
 
-networks:
+network:
   netservice:
 volumes:
   data:
