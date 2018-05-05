@@ -2,14 +2,8 @@ version: '3.0'
 
 services: 
 
-  web:
-    image: 127.0.0.1:5000/env
-    build: .
-    ports: 
-      - "8000:8000"
-
   nginx:
-    image: nginx
+    image: 127.0.0.1:5000/nginx
     ports:
       - "80:80"
     links:
