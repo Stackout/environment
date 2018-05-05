@@ -2,7 +2,6 @@ version: '3.0'
 
 services: 
 
-
   nginx:
     image: nginx
     ports:
@@ -17,8 +16,6 @@ services:
 
         - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
         - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
-    network:
-      - "netservice"
 
   phpfpm:
       image: php:7.2-fpm
@@ -26,8 +23,6 @@ services:
           - "9000:9000"
       volumes:
           - ./public:/usr/share/nginx/html
-    network:
-      - "netservice"
 
   mysql:
     image: mariadb
@@ -40,8 +35,6 @@ services:
       - "3306:3306" 
     volumes:
       - ./db/:/var/lib/mysql
-    networks:
-      - "netservice"
    deploy:
       placement:
         constraints: [node.role == manager]
@@ -57,8 +50,6 @@ services:
       PMA_USER: root
       PMA_PASSWORD: admin
       PMA_ARBITRARY: 1
-    network:
-      - "netservice"
 
   gitlab:
     image: gitlab/gitlab-ce:latest
@@ -67,18 +58,12 @@ services:
         - ./srv/gitlab/logs:/var/log/gitlab
         - ./srv/gitlab/data:/var/opt/gitlab
     hostname: git.sudio.co
-    network:
-      - "netservice"
     ports:
       - "440:443"
       - "8080:8080"
       - "22:22"
 
 
-network:
-  netservice:
-volumes:
-  data:
 
 #  dockerswarmgui:
 #    image: julienbreux/docker-swarm-gui:latest
