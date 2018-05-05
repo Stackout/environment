@@ -49,9 +49,9 @@ services:
       PMA_ARBITRARY: 1
 
 gitlab:
-	image: 'gitlab/gitlab-ce'
+	image: gitlab/gitlab-ce
 	restart: always
-	hostname: 'git.sudio.co'
+	hostname: git.sudio.co
 	links:
 	- postgresql:postgresql
 	- redis:redis
