@@ -35,9 +35,6 @@ services:
       - "3306:3306" 
     volumes:
       - ./db/:/var/lib/mysql
-   deploy:
-      placement:
-        constraints: [node.role == manager]
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
