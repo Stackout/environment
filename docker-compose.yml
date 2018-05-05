@@ -42,7 +42,7 @@ services:
     links:
       - mysql
     ports:
-      - 8183:80
+      - 8183:8183
     environment:
       PMA_USER: root
       PMA_PASSWORD: admin
@@ -58,7 +58,7 @@ services:
     ports:
       - "440:443"
       - "8080:8080"
-      - "22:22"
+      - "2222:22"
 
 
 
