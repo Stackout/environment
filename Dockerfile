@@ -1,1 +1,3 @@
-FROM nginx:apline
+FROM apline:latest
+
+ENTRYPOINT ["nginx"]
