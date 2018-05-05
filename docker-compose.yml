@@ -56,6 +56,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: gitlab
+      POSTGRES_DB: gitlabhq_production
     volumes:
       - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 

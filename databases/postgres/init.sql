@@ -1,3 +1,3 @@
-CREATE USER gitlab;
-CREATE DATABASE gitlabhq_production;
-GRANT ALL PRIVILEGES ON DATABASE gitlabhq_production TO root;
+-- CREATE USER gitlab;
+-- CREATE DATABASE default;
+-- GRANT ALL PRIVILEGES ON DATABASE default TO root;
