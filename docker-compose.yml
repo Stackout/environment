@@ -25,7 +25,7 @@ services:
    - ./public:/usr/share/nginx/html
 
  mysql:
- image: mariadb
+  image: mariadb
  environment:
   - MYSQL_ROOT_PASSWORD=admin
   - MYSQL_DATABASE=gitea
@@ -49,7 +49,7 @@ services:
    PMA_ARBITRARY: 1
 
  gitlab:
-  image: gitlab/gitlab-ce
+  image: gitlab/gitlab-ce:latest
   restart: always
   hostname: git.sudio.co
   links:
