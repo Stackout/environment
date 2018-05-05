@@ -70,7 +70,6 @@ services:
     depends_on:
       - "postgresql"
       - "redis"
-    command: ["./wait-for-it.sh", "postgresql:5432"]
     hostname: git.sudio.co
     links:
       - postgresql
