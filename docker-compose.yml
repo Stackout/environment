@@ -53,8 +53,8 @@ services:
     restart: always
     hostname: git.sudio.co
     links:
-      - postgresql/postgresql
-      - redis/redis
+      - postgresql
+      - redis
     environment:
       GITLAB_OMNIBUS_CONFIG:
         postgresql['enable'] = false
@@ -80,7 +80,19 @@ services:
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
 
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: gitlab
 
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
 
 
 
