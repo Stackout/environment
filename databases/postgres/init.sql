@@ -1,0 +1,3 @@
+CREATE USER admin;
+CREATE DATABASE packages;
+GRANT ALL PRIVILEGES ON DATABASE admin TO packages;

@@ -58,7 +58,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
-        gitlab_rails['db_username'] = "gitlab"
+        gitlab_rails['db_username'] = "root"
         gitlab_rails['db_password'] = "gitlab"
         gitlab_rails['db_host'] = "postgresql"
         gitlab_rails['db_port'] = "5432"
@@ -86,6 +86,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_USER: root
       POSTGRES_PASSWORD: gitlab
 
   redis:
