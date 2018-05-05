@@ -1,3 +1,3 @@
-CREATE USER admin;
-CREATE DATABASE packages;
-GRANT ALL PRIVILEGES ON DATABASE admin TO packages;
+CREATE USER gitlab;
+CREATE DATABASE gitlabhq_production;
+GRANT ALL PRIVILEGES ON DATABASE gitlabhq_production TO gitlab;
