@@ -53,8 +53,8 @@ services:
     restart: always
     hostname: git.sudio.co
     links:
-      - postgresql
-      - redis
+      - postgresql/postgresql
+      - redis/redis
     environment:
       GITLAB_OMNIBUS_CONFIG:
         postgresql['enable'] = false
@@ -79,6 +79,8 @@ services:
       - ./srv/gitlab/config:/etc/gitlab:rw
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
+
+
 
 
 
