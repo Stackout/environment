@@ -56,7 +56,7 @@ services:
       - postgresql
       - redis
     environment:
-      GITLAB_OMNIBUS_CONFIG:
+      GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
         gitlab_rails['db_username'] = "gitlab"
         gitlab_rails['db_password'] = "gitlab"
