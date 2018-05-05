@@ -58,7 +58,7 @@ services:
       POSTGRES_PASSWORD: gitlab
     volumes:
       - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      
+
   redis:
     image: redis
     restart: always
@@ -67,6 +67,10 @@ services:
 
   gitlab:
     image: gitlab/gitlab-ce
+    depends_on:
+      - "postgresql"
+      - "redis"
+    command: ["./wait-for-it.sh", "postgresql:5432"]
     hostname: git.sudio.co
     links:
       - postgresql
