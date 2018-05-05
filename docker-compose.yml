@@ -2,83 +2,83 @@ version: '3.0'
 
 services: 
 
- nginx:
-  image: nginx
-  ports:
-   - "80:80"
-  links:
-   - phpfpm
-  volumes:
-   - ./nginx/default:/etc/nginx/conf.d/default.conf
-   - ./nginx/packages.conf:/etc/nginx/conf.d/packages.conf
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    links:
+      - phpfpm
+    volumes:
+      - ./nginx/default:/etc/nginx/conf.d/default.conf
+      - ./nginx/packages.conf:/etc/nginx/conf.d/packages.conf
 
-   - ./public:/usr/share/nginx/html
+      - ./public:/usr/share/nginx/html
 
-   - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
-   - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
+      - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
+      - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
 
- phpfpm:
-  image: php:7.2-fpm
-  ports:
-   - "9000:9000"
-  volumes:
-   - ./public:/usr/share/nginx/html
+  phpfpm:
+      image: php:7.2-fpm
+      ports:
+          - "9000:9000"
+      volumes:
+          - ./public:/usr/share/nginx/html
 
- mysql:
+  mysql:
   image: mariadb
- environment:
-  - MYSQL_ROOT_PASSWORD=admin
-  - MYSQL_DATABASE=gitea
-  - MYSQL_USER=gitea
-  - MYSQL_PASSWORD=changeme
- ports:
-  - "3306:3306" 
- volumes:
-  - ./db/:/var/lib/mysql
-
- phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  restart: always
-  links:
-   - mysql
-  ports:
-   - 8183:8183
   environment:
-   PMA_USER: root
-   PMA_PASSWORD: admin
-   PMA_ARBITRARY: 1
-
- gitlab:
-  image: gitlab/gitlab-ce:latest
-  restart: always
-  hostname: git.sudio.co
-  links:
-   - postgresql:postgresql
-   - redis:redis
-  environment:
-   GITLAB_OMNIBUS_CONFIG:
-    postgresql['enable'] = false
-    gitlab_rails['db_username'] = "gitlab"
-    gitlab_rails['db_password'] = "gitlab"
-    gitlab_rails['db_host'] = "postgresql"
-    gitlab_rails['db_port'] = "5432"
-    gitlab_rails['db_database'] = "gitlabhq_production"
-    gitlab_rails['db_adapter'] = 'postgresql'
-    gitlab_rails['db_encoding'] = 'utf8'
-    redis['enable'] = false
-    gitlab_rails['redis_host'] = 'redis'
-    gitlab_rails['redis_port'] = '6379'
-    external_url 'http://git.sudio.co:30080'
-    gitlab_rails['gitlab_shell_ssh_port'] = 30022
+    - MYSQL_ROOT_PASSWORD=admin
+    - MYSQL_DATABASE=gitea
+    - MYSQL_USER=gitea
+    - MYSQL_PASSWORD=changeme
   ports:
-   # both ports must match the port from external_url above
-   - "30080:30080"
-   # the mapped port must match ssh_port specified above.
-   - "30022:22"
+    - "3306:3306" 
   volumes:
-   - ./srv/gitlab/config:/etc/gitlab:rw
-   - ./srv/gitlab/logs:/var/log/gitlab:rw
-   - ./srv/gitlab/data:/var/opt/gitlab:rw
+    - ./db/:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - mysql
+    ports:
+      - 8183:8183
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: admin
+      PMA_ARBITRARY: 1
+
+  gitlab:
+    image: gitlab/gitlab-ce
+    restart: always
+    hostname: git.sudio.co
+    links:
+      - postgresql:postgresql
+      - redis:redis
+    environment:
+      GITLAB_OMNIBUS_CONFIG:
+        postgresql['enable'] = false
+        gitlab_rails['db_username'] = "gitlab"
+        gitlab_rails['db_password'] = "gitlab"
+        gitlab_rails['db_host'] = "postgresql"
+        gitlab_rails['db_port'] = "5432"
+        gitlab_rails['db_database'] = "gitlabhq_production"
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'utf8'
+        redis['enable'] = false
+        gitlab_rails['redis_host'] = 'redis'
+        gitlab_rails['redis_port'] = '6379'
+        external_url 'http://git.sudio.co:30080'
+        gitlab_rails['gitlab_shell_ssh_port'] = 30022
+    ports:
+    # both ports must match the port from external_url above
+      - "30080:30080"
+    # the mapped port must match ssh_port specified above.
+      - "30022:22"
+    volumes:
+      - ./srv/gitlab/config:/etc/gitlab:rw
+      - ./srv/gitlab/logs:/var/log/gitlab:rw
+      - ./srv/gitlab/data:/var/opt/gitlab:rw
 
 
 
