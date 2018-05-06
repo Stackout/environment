@@ -77,27 +77,29 @@ services:
       - redis
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        postgresql['enable'] = true
-        postgresql['post'] = '5432'
+        # postgresql['enable'] = true
+        # postgresql['post'] = '5432'
         # unicorn['port'] = '8082'
-        nginx['listen_port'] = 8083
+        # nginx['listen_port'] = 8083
         # nginx['listen_https'] = false
-        gitlab_rails['db_username'] = "postgres"
-        gitlab_rails['db_password'] = "gitlab"
-        gitlab_rails['db_host'] = "postgresql"
-        gitlab_rails['db_port'] = "5432"
-        gitlab_rails['db_database'] = "gitlabhq_production"
-        gitlab_rails['db_adapter'] = 'postgresql'
-        gitlab_rails['db_encoding'] = 'utf8'
+        # gitlab_rails['db_username'] = "postgres"
+        # gitlab_rails['db_password'] = "gitlab"
+        # gitlab_rails['db_host'] = "postgresql"
+        # gitlab_rails['db_port'] = "5432"
+        # gitlab_rails['db_database'] = "gitlabhq_production"
+        # gitlab_rails['db_adapter'] = 'postgresql'
+        # gitlab_rails['db_encoding'] = 'utf8'
         redis['enable'] = false
         gitlab_rails['redis_host'] = 'redis'
         gitlab_rails['redis_port'] = '6379'
-        external_url 'http://git:8081'
+        external_url 'http://git'
         gitlab_rails['gitlab_shell_ssh_port'] = 2222
         gitlab_rails['gitlab_ssh_port'] = 2222
     ports:
+      - "80:80"
     # both ports must match the port from external_url above
       - "8081:8081"
+      - "443:443"
     # the mapped port must match ssh_port specified above.
       - "2222:2222"
     volumes:
