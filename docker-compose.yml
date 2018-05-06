@@ -74,7 +74,6 @@ services:
       - "postgresql"
       - "redis"
       - "nginx"
-      - "ruby"
     hostname: 127.0.0.1
     links:
       - postgresql
