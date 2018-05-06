@@ -1,6 +1,8 @@
 FROM nginx:alpine
 
-RUN apk install ruby && gem install rubygems-update && update_rubygems
+RUN apk install ruby \
+    && gem install rubygems-update \
+    && update_rubygems
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
 
