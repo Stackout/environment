@@ -2,20 +2,21 @@ version: '3.0'
 
 services: 
 
-  # nginx:
-  #   image: nginx:alpine
-  #   ports:
-  #     - "80:80"
-  #   links:
-  #     - phpfpm
-  #   volumes:
-  #     - ./nginx/default:/etc/nginx/conf.d/default.conf
-  #     - ./nginx/packages.conf:/etc/nginx/conf.d/packages.conf
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+#    links:
+#      - phpfpm
+    volumes:
+      - ./nginx/default:/etc/nginx/conf.d/default.conf
+      - ./nginx/packages.conf:/etc/nginx/conf.d/packages.conf
+      - ./nginx/gitlab.conf:/etc/nginx/conf.d/gitlab.conf
 
-  #     - ./public:/usr/share/nginx/html
+      - ./public:/usr/share/nginx/html
 
-  #     - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
-  #     - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
+      - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
+      - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
 
   # phpfpm:
   #     image: php:7.2-fpm
@@ -57,6 +58,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: gitlab
       POSTGRES_DB: gitlabhq_production
+      DB_EXTENSION: pg_trgm
     volumes:
       - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
@@ -71,6 +73,8 @@ services:
     depends_on:
       - "postgresql"
       - "redis"
+      - "nginx"
+      - "ruby"
     hostname: 127.0.0.1
     links:
       - postgresql
@@ -78,6 +82,8 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
+        nginx['enable'] = false
+        web_server['external_users'] = ['www-data']
         # postgresql['post'] = '5432'
         # unicorn['port'] = '8082'
         # nginx['listen_port'] = 8083
@@ -88,7 +94,7 @@ services:
         gitlab_rails['db_port'] = "5432"
         gitlab_rails['db_database'] = "gitlabhq_production"
         gitlab_rails['db_adapter'] = 'postgresql'
-        gitlab_rails['db_encoding'] = 'utf8'
+        gitlab_rails['db_encoding'] = 'unicode'
         redis['enable'] = false
         gitlab_rails['redis_host'] = 'redis'
         gitlab_rails['redis_port'] = '6379'
