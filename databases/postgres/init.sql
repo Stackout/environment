@@ -1,3 +1,6 @@
--- CREATE USER gitlab;
--- CREATE DATABASE default;
--- GRANT ALL PRIVILEGES ON DATABASE default TO root;
+CREATE EXTENSION pg_trgm;
+CREATE EXTENSION postgres_fdw;
+
+CREATE USER gitlab;
+CREATE DATABASE default;
+GRANT ALL PRIVILEGES ON DATABASE default TO gitlab;
