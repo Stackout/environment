@@ -48,17 +48,17 @@ services:
   #     PMA_PASSWORD: admin
   #     PMA_ARBITRARY: 1
 
-  postgresql:
-    image: postgres
-    restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: gitlab
-      POSTGRES_DB: gitlabhq_production
-    volumes:
-      - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+  # postgresql:
+  #   image: postgres
+  #   restart: always
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: gitlab
+  #     POSTGRES_DB: gitlabhq_production
+  #   volumes:
+  #     - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   redis:
     image: redis
@@ -69,11 +69,11 @@ services:
   gitlab:
     image: gitlab/gitlab-ce
     depends_on:
-      - "postgresql"
+#      - "postgresql"
       - "redis"
     hostname: 127.0.0.1
     links:
-      - postgresql
+#      - postgresql
       - redis
     environment:
       GITLAB_OMNIBUS_CONFIG: |
