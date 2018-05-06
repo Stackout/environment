@@ -69,11 +69,11 @@ services:
   gitlab:
     image: gitlab/gitlab-ce
     depends_on:
-#      - "postgresql"
+      - "postgresql"
       - "redis"
     hostname: 127.0.0.1
     links:
-#      - postgresql
+      - postgresql
       - redis
     environment:
       GITLAB_OMNIBUS_CONFIG: |
