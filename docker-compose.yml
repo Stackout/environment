@@ -48,17 +48,17 @@ services:
   #     PMA_PASSWORD: admin
   #     PMA_ARBITRARY: 1
 
-  # postgresql:
-  #   image: postgres
-  #   restart: always
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: gitlab
-  #     POSTGRES_DB: gitlabhq_production
-  #   volumes:
-  #     - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gitlab
+      POSTGRES_DB: gitlabhq_production
+    volumes:
+      - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   redis:
     image: redis
@@ -82,13 +82,13 @@ services:
         # unicorn['port'] = '8082'
         # nginx['listen_port'] = 8083
         # nginx['listen_https'] = false
-        # gitlab_rails['db_username'] = "postgres"
-        # gitlab_rails['db_password'] = "gitlab"
-        # gitlab_rails['db_host'] = "postgresql"
-        # gitlab_rails['db_port'] = "5432"
-        # gitlab_rails['db_database'] = "gitlabhq_production"
-        # gitlab_rails['db_adapter'] = 'postgresql'
-        # gitlab_rails['db_encoding'] = 'utf8'
+        gitlab_rails['db_username'] = "postgres"
+        gitlab_rails['db_password'] = "gitlab"
+        gitlab_rails['db_host'] = "postgresql"
+        gitlab_rails['db_port'] = "5432"
+        gitlab_rails['db_database'] = "gitlabhq_production"
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'utf8'
         redis['enable'] = false
         gitlab_rails['redis_host'] = 'redis'
         gitlab_rails['redis_port'] = '6379'
