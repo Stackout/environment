@@ -79,9 +79,9 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = true
         postgresql['post'] = '5432'
-        unicorn['port'] = '8082'
-        nginx['listen_port'] = 80
-        nginx['listen_https'] = false
+        # unicorn['port'] = '8082'
+        # nginx['listen_port'] = 80
+        # nginx['listen_https'] = false
         gitlab_rails['db_username'] = "postgres"
         gitlab_rails['db_password'] = "gitlab"
         gitlab_rails['db_host'] = "postgresql"
