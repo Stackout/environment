@@ -77,7 +77,7 @@ services:
       - redis
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        postgresql['enable'] = false
+        postgresql['enable'] = true
         postgresql['post'] = '5432'
         unicorn['port'] = '8082'
         nginx['listen_port'] = 80
