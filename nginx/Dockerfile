@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 RUN apk update \
     && apk add --update \
-    && apk add ruby \
+    && apk add ruby --no-document \
     && gem install rubygems-update \
     && update_rubygems
 
