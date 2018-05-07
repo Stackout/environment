@@ -33,7 +33,8 @@ services:
       - './nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl'
       
   letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    #image: jrcs/letsencrypt-nginx-proxy-companion
+    image: banian/letsencrypt
     restart: always
     environment:
       NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
