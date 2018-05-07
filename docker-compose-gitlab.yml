@@ -67,7 +67,6 @@ services:
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
 
-
 networks:
   default:
     external:
