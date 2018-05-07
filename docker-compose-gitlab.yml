@@ -26,7 +26,7 @@ services:
     depends_on:
       - "postgresql"
       - "redis"
-    hostname: 'gitlab'
+    hostname: 127.0.0.1
     links:
       - postgresql
       - redis
@@ -60,6 +60,7 @@ services:
         gitlab_rails['gitlab_ssh_port'] = 2222
     ports:
       - "2222:22"
+      - "8888:80"
     volumes:
       - ./srv/gitlab/config:/etc/gitlab:rw
       - ./srv/gitlab/logs:/var/log/gitlab:rw
