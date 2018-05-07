@@ -28,13 +28,14 @@ services:
       - "redis"
       - "nginx"
     hostname: 127.0.0.1
-    VIRTUAL_HOST: gitlab
-    LETSENCRYPT_HOST: gitlab
-    LETSENCRYPT_EMAIL: ryan@sudio.co
+
     links:
       - postgresql
       - redis
     environment:
+      VIRTUAL_HOST: gitlab
+      LETSENCRYPT_HOST: gitlab
+      LETSENCRYPT_EMAIL: ryan@sudio.co
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
         nginx['enable'] = false
