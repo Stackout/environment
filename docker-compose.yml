@@ -108,7 +108,7 @@ networks:
   default:
     # external:
     #   name: nginx-proxy
-    driver: overlay
+    # driver: overlay
     ipam:
       driver: default
       config:
