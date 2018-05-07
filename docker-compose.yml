@@ -16,8 +16,7 @@ services:
           - "9000:9000"
       volumes:
           - ./public:/usr/share/nginx/html
-      environment:
-      - "constraint:node.hostname==master"
+
 
 #######################
 # NGINX               #
@@ -44,8 +43,7 @@ services:
       - ./public:/usr/share/nginx/html
       - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
       - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
-    environment:
-      - "constraint:node.hostname==master"
+
 
 
 
@@ -91,8 +89,8 @@ services:
       - ./nginx/vhosts:/etc/nginx/vhost.d
       - ./public:/usr/share/nginx/html
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    environment:
-      - "constraint:node.hostname==master"
+    # environment:
+    #   - "constraint:node.hostname==master"
 
 
 
@@ -108,8 +106,7 @@ services:
       - "3306:3306" 
     volumes:
       - ./databases/mysql/:/var/lib/mysql
-    environment:
-      - "constraint:node.hostname==master"
+
 
 
   phpmyadmin:
