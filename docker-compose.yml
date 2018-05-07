@@ -37,12 +37,11 @@ services:
     #image: jrcs/letsencrypt-nginx-proxy-companion
     #image: banian/letsencrypt
     restart: always
-    label:
-     - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     environment:
       NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
     labels:
        - NGINX_PROXY_SWARM_CONTAINER=true
+       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/certs:/etc/nginx/certs
