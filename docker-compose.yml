@@ -33,9 +33,12 @@ services:
       - './nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl'
       
   letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    image: jwilder/nginx-proxy
+    #image: jrcs/letsencrypt-nginx-proxy-companion
     #image: banian/letsencrypt
     restart: always
+    label:
+     - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     environment:
       NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
     labels:
@@ -45,7 +48,6 @@ services:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/vhosts:/etc/nginx/vhost.d
       - ./public:/usr/share/nginx/html
-
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
 
 
@@ -95,11 +97,11 @@ networks:
       name: nginx-proxy
 
 
-# volumes:
-#   nginx-config:
-#   nginx-certs:
-#   nginx-vhosts:
-#   nginx-webroot:
+volumes:
+  nginx-config:
+  nginx-certs:
+  nginx-vhosts:
+  nginx-webroot:
 
 
 #  gitea:
