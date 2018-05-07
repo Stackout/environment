@@ -104,9 +104,6 @@ services:
       PMA_PASSWORD: admin
       PMA_ARBITRARY: 1
 
-configs:
-  nginx_vhost:
-    folder: 
 
 networks:
   default:
