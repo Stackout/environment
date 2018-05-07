@@ -26,21 +26,20 @@ services:
     depends_on:
       - "postgresql"
       - "redis"
-    hostname: 127.0.0.1
-
+    hostname: 'gitlab'
     links:
       - postgresql
       - redis
     environment:
-      VIRTUAL_HOST: gitlab
-      LETSENCRYPT_HOST: gitlab
-      LETSENCRYPT_EMAIL: ryan@sudio.co
+      # VIRTUAL_HOST: gitlab
+      # LETSENCRYPT_HOST: gitlab
+      # LETSENCRYPT_EMAIL: ryan@sudio.co
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
-        nginx['proxy_set_headers'] = {
-          "X-Forwarded-Proto" => "https",
-          "X-Forwarded-Ssl" => "on"
-        }
+        # nginx['proxy_set_headers'] = {
+        #   "X-Forwarded-Proto" => "https",
+        #   "X-Forwarded-Ssl" => "on"
+        # }
         web_server['external_users'] = ['www-data']
         # postgresql['post'] = '5432'
         # unicorn['port'] = '8082'
