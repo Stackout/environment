@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 RUN apk update \
-    && aok add --update \
+    && apk add --update \
     && apk add ruby \
     && gem install rubygems-update \
     && update_rubygems
