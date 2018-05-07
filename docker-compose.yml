@@ -9,7 +9,7 @@ services:
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
 
-      
+
   phpfpm:
       image: php:7.2-fpm
       restart: always
@@ -110,7 +110,7 @@ networks:
   default:
     # external:
     #   name: nginx-proxy
-    # driver: overlay
+    driver: overlay
     ipam:
       driver: default
       config:
