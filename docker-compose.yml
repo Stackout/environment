@@ -35,16 +35,16 @@ services:
       - '/var/run/docker.sock:/tmp/docker.sock:ro'
       - './nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl'
 
-  # nginx-proxy:
-  #   image: jwilder/nginx-proxy
-  #   labels:
-  #      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-  #   volumes:
-  #     - ./nginx/conf.d:/etc/nginx/conf.d
-  #     - ./nginx/certs:/etc/nginx/certs
-  #     - ./nginx/vhosts:/etc/nginx/vhost.d
-  #     - ./public:/usr/share/nginx/html
-  #     - '/var/run/docker.sock:/tmp/docker.sock:ro'
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    labels:
+       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/vhosts:/etc/nginx/vhost.d
+      - ./public:/usr/share/nginx/html
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
