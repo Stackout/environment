@@ -1,0 +1,79 @@
+version: '3'
+
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gitlab
+      POSTGRES_DB: gitlabhq_production
+      DB_EXTENSION: pg_trgm
+    volumes:
+      - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+services:
+  web:
+    image: gitlab/gitlab-ce
+    depends_on:
+      - "postgresql"
+      - "redis"
+      - "nginx"
+    hostname: 127.0.0.1
+    VIRTUAL_HOST: gitlab
+    LETSENCRYPT_HOST: gitlab
+    LETSENCRYPT_EMAIL: ryan@sudio.co
+    links:
+      - postgresql
+      - redis
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        postgresql['enable'] = false
+        nginx['enable'] = false
+        nginx['proxy_set_headers'] = {
+          "X-Forwarded-Proto" => "https",
+          "X-Forwarded-Ssl" => "on"
+        }
+        web_server['external_users'] = ['www-data']
+        # postgresql['post'] = '5432'
+        # unicorn['port'] = '8082'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        gitlab_rails['db_username'] = "postgres"
+        gitlab_rails['db_password'] = "gitlab"
+        gitlab_rails['db_host'] = "postgresql"
+        gitlab_rails['db_port'] = "5432"
+        gitlab_rails['db_database'] = "gitlabhq_production"
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'unicode'
+        redis['enable'] = false
+        gitlab_rails['redis_host'] = 'redis'
+        gitlab_rails['redis_port'] = '6379'
+        external_url 'http://gitlab'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+        gitlab_rails['gitlab_ssh_port'] = 2222
+    ports:
+      - "80:80"
+    # both ports must match the port from external_url above
+      - "8081:8081"
+      - "443:443"
+    # the mapped port must match ssh_port specified above.
+      - "2222:2222"
+    volumes:
+      - ./srv/gitlab/config:/etc/gitlab:rw
+      - ./srv/gitlab/logs:/var/log/gitlab:rw
+      - ./srv/gitlab/data:/var/opt/gitlab:rw
+
+
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
