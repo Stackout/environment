@@ -33,14 +33,14 @@ services:
     environment:
       VIRTUAL_HOST: gitlab
       VIRTUAL_PORT: 80
-      # LETSENCRYPT_HOST: gitlab
-      # LETSENCRYPT_EMAIL: ryan@sudio.co
+      LETSENCRYPT_HOST: gitlab
+      LETSENCRYPT_EMAIL: ryan@sudio.co
       GITLAB_OMNIBUS_CONFIG: |
         postgresql['enable'] = false
-        # nginx['proxy_set_headers'] = {
-        #   "X-Forwarded-Proto" => "https",
-        #   "X-Forwarded-Ssl" => "on"
-        # }
+        nginx['proxy_set_headers'] = {
+          "X-Forwarded-Proto" => "https",
+          "X-Forwarded-Ssl" => "on"
+        }
         web_server['external_users'] = ['www-data']
         # postgresql['post'] = '5432'
         # unicorn['port'] = '8082'
@@ -61,7 +61,6 @@ services:
         gitlab_rails['gitlab_ssh_port'] = 2222
     ports:
       - "2222:22"
-      - "80:80"
     volumes:
       - ./srv/gitlab/config:/etc/gitlab:rw
       - ./srv/gitlab/logs:/var/log/gitlab:rw
