@@ -102,8 +102,15 @@ services:
 
 networks:
   default:
-    external:
-      name: nginx-proxy
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+        -subnet: 20.0.14.0/24
+
+  # default:
+  #   external:
+  #     name: nginx-proxy
 
 
 
