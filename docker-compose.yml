@@ -6,12 +6,12 @@ services:
     image: nginx
     container_name: nginx
     restart: always
-    labels:
-       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-    depends_on:
-      - 'phpfpm'
-    links:
-      - phpfpm
+    # labels:
+    #    - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+    # depends_on:
+    #   - 'phpfpm'
+    # links:
+    #   - phpfpm
     ports:
       - '80:80'
       - '443:443'
@@ -23,83 +23,83 @@ services:
       - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
       - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
 
-  dockergen:
-    image: jwilder/docker-gen
-    container_name: nginx-docker-gen
-    command: -notify-sighup nginx -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
-    labels:
-       - com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certs:/etc/nginx/certs
-      - ./nginx/vhosts:/etc/nginx/vhost.d
-      - ./public:/usr/share/nginx/html
-      - '/var/run/docker.sock:/tmp/docker.sock:ro'
-      - './nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl'
+  # dockergen:
+  #   image: jwilder/docker-gen
+  #   container_name: nginx-docker-gen
+  #   command: -notify-sighup nginx -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+  #   labels:
+  #      - com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - ./nginx/certs:/etc/nginx/certs
+  #     - ./nginx/vhosts:/etc/nginx/vhost.d
+  #     - ./public:/usr/share/nginx/html
+  #     - '/var/run/docker.sock:/tmp/docker.sock:ro'
+  #     - './nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl'
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    labels:
-       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certs:/etc/nginx/certs
-      - ./nginx/vhosts:/etc/nginx/vhost.d
-      - ./public:/usr/share/nginx/html
-      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+  # nginx-proxy:
+  #   image: jwilder/nginx-proxy
+  #   labels:
+  #      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - ./nginx/certs:/etc/nginx/certs
+  #     - ./nginx/vhosts:/etc/nginx/vhost.d
+  #     - ./public:/usr/share/nginx/html
+  #     - '/var/run/docker.sock:/tmp/docker.sock:ro'
 
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    restart: always
-    environment:
-      NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
-      NGINX_PROXY_CONTAINER: nginx
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certs:/etc/nginx/certs
-      - ./nginx/vhosts:/etc/nginx/vhost.d
-      - ./public:/usr/share/nginx/html
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+  # letsencrypt:
+  #   image: jrcs/letsencrypt-nginx-proxy-companion
+  #   restart: always
+  #   environment:
+  #     NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
+  #     NGINX_PROXY_CONTAINER: nginx
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - ./nginx/certs:/etc/nginx/certs
+  #     - ./nginx/vhosts:/etc/nginx/vhost.d
+  #     - ./public:/usr/share/nginx/html
+  #     - '/var/run/docker.sock:/var/run/docker.sock:ro'
 
-  phpfpm:
-      image: php:7.2-fpm
-      restart: always
-      ports:
-          - "9000:9000"
-      volumes:
-          - ./public:/usr/share/nginx/html
+  # phpfpm:
+  #     image: php:7.2-fpm
+  #     restart: always
+  #     ports:
+  #         - "9000:9000"
+  #     volumes:
+  #         - ./public:/usr/share/nginx/html
 
-  mysql:
-    image: mariadb
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_DATABASE=default
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=changeme
-    ports:
-      - "3306:3306" 
-    volumes:
-      - ./databases/mysql/:/var/lib/mysql
+  # mysql:
+  #   image: mariadb
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=admin
+  #     - MYSQL_DATABASE=default
+  #     - MYSQL_USER=root
+  #     - MYSQL_PASSWORD=changeme
+  #   ports:
+  #     - "3306:3306" 
+  #   volumes:
+  #     - ./databases/mysql/:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    links:
-      - mysql
-    ports:
-      - 8183:8183
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: admin
-      PMA_ARBITRARY: 1
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   links:
+  #     - mysql
+  #   ports:
+  #     - 8183:8183
+  #   environment:
+  #     PMA_USER: root
+  #     PMA_PASSWORD: admin
+  #     PMA_ARBITRARY: 1
 
-  dockerswarmgui:
-    image: julienbreux/docker-swarm-gui:latest
-    ports:
-      - "8282:8080"
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
+  # dockerswarmgui:
+  #   image: julienbreux/docker-swarm-gui:latest
+  #   ports:
+  #     - "8282:8080"
+  #   volumes:
+  #     - '/var/run/docker.sock:/var/run/docker.sock'
 
 
 networks:
