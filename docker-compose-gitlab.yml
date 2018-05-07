@@ -32,7 +32,7 @@ services:
       - redis
     environment:
       VIRTUAL_HOST: gitlab
-      VIRTUAL_PORT: 8888
+      VIRTUAL_PORT: 80
       # LETSENCRYPT_HOST: gitlab
       # LETSENCRYPT_EMAIL: ryan@sudio.co
       GITLAB_OMNIBUS_CONFIG: |
@@ -61,7 +61,7 @@ services:
         gitlab_rails['gitlab_ssh_port'] = 2222
     ports:
       - "2222:22"
-      - "8888:80"
+      - "80:80"
     volumes:
       - ./srv/gitlab/config:/etc/gitlab:rw
       - ./srv/gitlab/logs:/var/log/gitlab:rw
