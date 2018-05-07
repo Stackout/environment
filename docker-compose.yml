@@ -64,7 +64,7 @@ services:
     ports:
       - "3306:3306" 
     volumes:
-      - ./db/:/var/lib/mysql
+      - ./database/mysql/:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -82,8 +82,8 @@ services:
     image: julienbreux/docker-swarm-gui:latest
     ports:
       - "8282:8080"
-    volume:
-      - /var/run/docker.sock:/var/run/docker.sock
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
 
 networks:
   default:
