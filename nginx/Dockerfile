@@ -15,7 +15,7 @@ RUN mkdir -p /etc/nginx \
 RUN echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main" >> /etc/apt/sources.list.d/passenger.list
 
 RUN apk update \
-    && apk install nginx-extras passenger
+    && apk add nginx-extras passenger
 
 
 
