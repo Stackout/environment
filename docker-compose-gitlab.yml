@@ -21,7 +21,7 @@ services:
     ports:
       - "6379:6379"
 
-  web:
+  gitlab:
     image: gitlab/gitlab-ce
     depends_on:
       - "postgresql"
@@ -31,7 +31,8 @@ services:
       - postgresql
       - redis
     environment:
-      # VIRTUAL_HOST: gitlab
+      VIRTUAL_HOST: gitlab
+      VIRTUAL_PORT: 8080
       # LETSENCRYPT_HOST: gitlab
       # LETSENCRYPT_EMAIL: ryan@sudio.co
       GITLAB_OMNIBUS_CONFIG: |
