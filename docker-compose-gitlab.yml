@@ -18,7 +18,7 @@ services:
     volumes:
       - ./databases/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - "constraint:node==master"
+      - "constraint:node.hostname==master"
 
   redis:
     image: redis
@@ -73,7 +73,7 @@ services:
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
     environment:
-      - "constraint:node==master"
+      - "constraint:node.hostname==master"
 
 networks:
   default:
