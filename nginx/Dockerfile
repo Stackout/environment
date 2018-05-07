@@ -6,7 +6,8 @@ RUN apk update \
     && gem install rubygems-update  --no-document \
     && update_rubygems --no-document
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+RUN apk add --no-cache gnupg \
+    && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
 
 RUN echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main" >> /etc/apt/sources.list.d/passenger.list
 
