@@ -69,3 +69,15 @@ $ docker stack deploy --compose-file docker-compose-gitlab.yml environment
 ```
 
 Next, if gitlab is expierencing some issues, you'll need to pipe in to the gitlab container and migrate the database.
+
+```
+$ sudo gitlab-rake db:migrate
+```
+Now reconfigure gitlab.
+```
+$ sudo gitlab-ctl reconfigure
+```
+Check gitlab status
+```
+$ sudo gitlab-ctl status
+```

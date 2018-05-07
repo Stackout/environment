@@ -9,7 +9,6 @@ services:
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
 
-
   phpfpm:
       image: php:7.2-fpm
       restart: always
@@ -17,6 +16,13 @@ services:
           - "9000:9000"
       volumes:
           - ./public:/usr/share/nginx/html
+      environment:
+        - "constraint:node==master"
+
+#######################
+# NGINX               #
+#######################
+
 
   nginx:
     image: nginx
@@ -38,6 +44,14 @@ services:
       - ./public:/usr/share/nginx/html
       - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
       - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
+    environment:
+      - "constraint:node==master"
+
+
+#######################
+# DOCKER GEN          #
+#######################
+
 
   dockergen:
     image: jwilder/docker-gen
@@ -46,7 +60,7 @@ services:
     labels:
        - com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen
     volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/conf:/etc/nginx/conf
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/vhosts:/etc/nginx/vhost.d
       - ./public:/usr/share/nginx/html
@@ -58,7 +72,7 @@ services:
     labels:
        - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/vhosts:/etc/nginx/vhost.d
       - ./public:/usr/share/nginx/html
@@ -71,12 +85,13 @@ services:
       NGINX_DOCKER_GEN_CONTAINER: nginx-docker-gen
       NGINX_PROXY_CONTAINER: nginx
     volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/vhosts:/etc/nginx/vhost.d
       - ./public:/usr/share/nginx/html
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-
+    environment:
+      - "constraint:node==master"
 
 
   mysql:
@@ -91,6 +106,8 @@ services:
       - "3306:3306" 
     volumes:
       - ./databases/mysql/:/var/lib/mysql
+    environment:
+      - "constraint:node==master"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -103,6 +120,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: admin
       PMA_ARBITRARY: 1
+
 
 
 networks:
