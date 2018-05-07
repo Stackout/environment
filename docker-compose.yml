@@ -5,6 +5,7 @@ services:
   nginx:
     image: nginx
     container_name: nginx
+    links:
       - phpfpm
     ports:
       - '80:80'
@@ -72,11 +73,6 @@ services:
   #     PMA_USER: root
   #     PMA_PASSWORD: admin
   #     PMA_ARBITRARY: 1
-
-
-
-
-
 
 
 networks:

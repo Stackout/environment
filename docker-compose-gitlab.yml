@@ -73,6 +73,12 @@ services:
       - ./srv/gitlab/logs:/var/log/gitlab:rw
       - ./srv/gitlab/data:/var/opt/gitlab:rw
 
+# Nginx Volumes
+volumes:
+  nginx-config:
+  nginx-certs:
+  nginx-vhosts:
+  nginx-webroot:
 
 networks:
   default:
