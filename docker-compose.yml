@@ -10,26 +10,26 @@ services:
       volumes:
           - ./public:/usr/share/nginx/html
 
-  # nginx:
-  #   image: nginx
-  #   container_name: nginx
-  #   restart: always
-  #   labels:
-  #      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-  #   depends_on:
-  #     - 'phpfpm'
-  #   links:
-  #     - phpfpm
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   volumes:
-  #     - ./nginx/conf.d:/etc/nginx/conf.d
-  #     - ./nginx/certs:/etc/nginx/certs
-  #     - ./nginx/vhosts:/etc/nginx/vhost.d
-  #     - ./public:/usr/share/nginx/html
-  #     - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
-  #     - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    labels:
+       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+    depends_on:
+      - 'phpfpm'
+    links:
+      - phpfpm
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/vhosts:/etc/nginx/vhost.d
+      - ./public:/usr/share/nginx/html
+      - ./nginx/logs/nginx-error.log:/var/log/nginx/error.log
+      - ./nginx/logs/nginx-access.log:/var/log/nginx/access.log
 
   # dockergen:
   #   image: jwilder/docker-gen
