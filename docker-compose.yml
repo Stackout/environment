@@ -108,7 +108,7 @@ networks:
     ipam:
       driver: default
       config:
-        -subnet: 20.0.14.0/24
+        - subnet: 20.0.14.0/24
 
   # default:
   #   external:
